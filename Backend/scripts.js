@@ -1,0 +1,35 @@
+const script = `CREATE TABLE tbluser (
+    id SERIAL NOT NULL PRIMARY KEY,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    FirstName VARCHAR(50) NOT NULL,
+    lastName VARCHAR(50),
+    contact VARCHAR(15),
+    accounts TEXT[],
+    password TEXT,
+    Country TEXT,
+    currency VARCHAR(5) NOT NULL DEFAULT 'ZAR',
+    createdAT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tblaccount (
+    id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES tbluser(id),
+    account_name VARCHAR(50) NOT NULL,
+    account_number VARCHAR(50) NOT NULL,
+    account_balance NUMERIC(10,2) NOT NULL,
+    createdAT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE tbltransaction (
+    id SERIAL NOT NULL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES tbluser(id),
+    description TEXT NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'pending',
+    source VARCHAR(100) NOT NULL,
+    amount NUMERIC(10,2) NOT NULL,
+    type VARCHAR(50) NOT NULL DEFAULT 'income',
+    createdAT TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);`
